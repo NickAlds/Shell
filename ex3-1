@@ -1,0 +1,29 @@
+#! /bin/bash
+echo "选择你要清空的文件类型"
+echo "1---文件夹"
+echo "2---其他文件"
+echo "3---所有文件"
+echo "4---没想好，先退出"
+read input
+case $input in
+1)for file in $(ls) 
+    do
+    if [ -d "$file" ] 
+    then
+    rmdir $file
+    fi
+    done
+    ;;
+2)for file in $(ls) 
+    do
+    if [ -f "$file" ] 
+    then
+    rm $file
+    fi
+    done
+    ;;
+3)rm -rf *
+    ;;
+4)exit 0
+    ;;
+esac 
