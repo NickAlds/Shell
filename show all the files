@@ -1,0 +1,33 @@
+#!/bin/bash 
+xx=0
+func(){ 
+	dire=${PWD}
+	#echo ${dire}
+	#echo ${PWD}
+	for file in $(ls) 
+	do 
+		if [ -f "$file" ] 
+		then
+			i=$xx
+			#echo i="$i"
+			while [ $i -gt "0" ] 
+			do
+				echo -e "+\c"
+				i=$(($i-1))
+			done
+			echo -e  "-\c"
+			echo ${dire}"/$file"
+		elif [ -d "$file" ] 
+		then
+			echo -e  "-\c"
+			echo ${dire}"/$file(folder)"
+			cd "$file"
+			xx=$(($xx+1))
+			func; 
+			cd .. 
+		fi
+
+		#echo "xxxxxxxxxxxxxxxxxxxxxxxx\n" 
+	done 
+} 
+func
