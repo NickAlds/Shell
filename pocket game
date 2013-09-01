@@ -1,0 +1,39 @@
+#!/bin/bash
+for i in $( seq 1 54 )          #初始化牌
+do
+        ok[$i]=1
+done
+max=0                           #初始化赢家
+for i in $(seq 1 4 )            #游戏开始
+do
+        echo "Player $i"        #玩家i 的回合
+        a=$((RANDOM%53+1))      #抽牌
+        while [[ ${ok[$a]} -eq 0 ]]; 
+        do
+        a=$((RANDOM%53+1))
+        done
+        ok[$a]=0
+        if [  $a -gt $max ]; then
+                max=$a
+                num=$i
+        fi
+        HuaSe=$((a%4))          #生成花色               
+        case $HuaSe in
+                0)HS='C';;      #草花   
+                1)HS='D';;      #方块
+                2)HS='H';;      #红心
+                3)HS='S';;      #黑心
+        esac
+        DaXiao=$((a/4+1))       #生成牌值
+case $DaXiao in
+                2|3|4|5|6|7|8|9|10) echo $HS $DaXiao;;
+                11)echo $HS 'J';;
+                12)echo $HS 'Q';;
+                13)echo $HS 'K';;
+                1 )echo $HS 'A';;
+                14)echo 'small JOKE ';; #小王
+                15)echo 'big   JOKE ';; #大王
+        esac
+        read ll
+done
+echo "Player $num win !"        #游戏结果
