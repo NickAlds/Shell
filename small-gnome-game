@@ -1,0 +1,44 @@
+#!/bin/sh
+gdialog --title "GAME" --yesno "Do you want to give a try?" 9 18
+if( $? != 0 ); then
+        gdialog --infobox " Thank you "
+        sleep 1
+        gdialog --clear
+        exit 0
+fi
+gdialog --title "GAME" --msgbox "This is a small game " 9 18
+gdialog --title "GAME" --inputbox "Enter your name" 9 18 2>name.txt
+_name=$(cat name.txt)
+gdialog --menu "$_name, what is your major?" 9 18 3 1 "Liberal Art" 2 "Science"
+3 "Computer Science" 2>choice.txt
+_choice=$(cat choice.txt)
+case "$_choice" in
+        1) gdialog --title "GAME" --msgbox "空山新雨后的下一句是？" 9 18 
+           gdialog --menu  "Choices" 12 24 3 1 "兵长一米六" 2 "自挂东南枝" 3 "天气晚来秋">_1.txt
+           Cho = $(cat _1.txt)
+           case Cho in
+           3) gdialog --title "Answer" --msgbox "Right";;
+           *) gdialog --title "Answer" --msgbox "Wrong";;
+           esac
+           ;;
+        2) gdialog --title "GAME" --msgbox "嫦娥一号撞击月球的地区是?" 9 18
+           gdialog --menu  "Choices" 12 24 3 1 "地中海" 2 "丰富海" 3 "冷海">_2.txt
+           Cho = $(cat _1.txt)
+           case Cho in
+           2) gdialog --title "Answer" --msgbox "Right";;
+           *) gdialog --title "Answer" --msgbox "Wrong";;
+           esac
+           ;;
+        3) gdialog --title "GAME" --msgbox "不是shell具有的功能和特点的是?" 9 18
+           gdialog --menu  "Choices" 12 24 3 1 "输入输出重定向" 2 "执行后台进程" 3 "处理程序命令">_3.txt
+           Cho = $(cat _1.txt)
+           case Cho in
+           3) gdialog --title "Answer" --msgbox "Right";;
+           *) gdialog --title "Answer" --msgbox "Wrong";;
+           esac
+           ;;
+esac
+
+sleep 1
+gdialog --clear
+exit 0
