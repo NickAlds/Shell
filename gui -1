@@ -1,0 +1,21 @@
+#! /bin/sh
+dialog --title "Start" --msgbox
+dialog --title "Welcome to the Start Menu."
+dialog --title "Confirm" --yesno "Do you want to enter the Menu?" 9 18
+if [ $? != 0]; then
+        dialog --infobox "Welcome!"
+        sleep 2
+        dialog --clear
+　      exit 0
+fi
+dialog --menu "MENU" 12 24 3 1 "CO Player" 2 "Radio" 3 "Sound Control" 2>_1.txt
+M_O =  $(cat _1.txt)
+if [ "$M_O" = "1" ] ; then
+   !gnome-cd
+elif [ "$M_O" = "2" ] ; then
+                                                                                
+  !gnome-sound-recorder
+else
+  !gnome-volume-control
+fi
+exit 0
