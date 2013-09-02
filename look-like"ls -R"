@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+list(){
+        cd $1
+        for i in $(ls);do
+                if [[ -d $i ]];then
+                        printf "%*s%s/\n" $2 $i
+                        list $i $(($2+4))
+                else
+                        printf "%*s%s\n" $2 $i
+                fi
+        done
+        cd ..
+}
+
+list /test 0
