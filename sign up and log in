@@ -1,0 +1,103 @@
+#!/bin/bash
+#Author: poonjun
+#Date: 03-09-2009
+
+#save the mode of terminal
+SAVEDSTTY=`stty -g`
+#calculate the number line of the password.txt
+NUM_PASS=0
+#calculate the number line of the user.txt
+NUM_USER=0
+
+#read your ID name
+echo -n "Please enter your ID : "
+read READ_NAME
+
+#change the mode of terminal
+stty -echo
+
+#read your password
+echo -n "Please enter your password : "
+read READ_PASS
+
+#recover the mode of terminal
+stty $SAVEDSTTY
+
+#read the user.txt
+for i in `cat user.txt`
+do
+NUM_USER=$(($NUM_USER+1))
+if [ ${i} = ${READ_NAME} ] ; then
+    break;
+fi
+done
+
+#read the password.txt
+for j in `cat password.txt`
+do
+NUM_PASS=$(($NUM_PASS+1))
+if [ ${j} = ${READ_PASS} ] ; then
+    break;
+fi
+done
+
+#check the password whether belongs to the user
+if [ $NUM_USER -ne $NUM_PASS ] ; then
+clear
+echo "Your ID or password is not correct."
+exit 1
+fi
+
+#the user name and the password is all correct
+clear
+echo "Welcome you, $READ_NAME !"
+
+注册程序：Register.sh
+
+#!/bin/bash
+
+#save the mode of the terminal
+SAVEDSTTY=`stty -g`
+
+echo "Enter your name that you want to be regisited : "
+read REG_NAME;
+
+stty -echo
+
+#read the password at the first time
+echo "Enter your password that you want to be regisited : "
+read REG_PASS1
+
+#read the password at the second time
+echo "Enter your password that you want to be regisited angin : "
+read REG_PASS2
+
+stty $SAVEDSTTY
+
+#check whether the two password are same or not
+if [ $REG_PASS1 != $REG_PASS2 ] ; then
+echo "The password is not same ! "
+exit 1
+fi
+
+clear
+
+#if the two password are same, then save them
+#save the user name to user.txt
+if [ echo ${REG_NAME} >> user.txt ] ; then
+else
+echo "Error happened while write the user name."
+exit 1
+fi
+
+#save the password to the password.txt
+if [ echo ${REG_PASS1} >> password.txt ] ; then
+else
+echo "Error happend while write the password."
+exit 1
+fi
+
+#display the sucessful message
+clear
+echo "Congratulations, registied successfully."
+echo "Now, you can use your user name and password to log in. "
