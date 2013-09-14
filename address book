@@ -1,0 +1,76 @@
+#!/bin/bash
+# 
+# MENU
+#
+ 
+function find()
+{
+	echo "input Name:"
+    read name
+    cat data.txt |grep "^$name"
+    read a
+}
+ 
+function add()
+{
+	echo "input Name:"
+    read name
+    echo "input Number:"
+    read number
+    te="$name $number"
+    echo $te
+    echo $te >>data.txt
+    read a
+ 
+}
+function Edit()
+{
+	echo "input Old Name:"
+    read nameo
+    echo "input New Name:"
+    read namen
+     echo "input Old Number:"
+    read numbero
+     echo "input New Number:"
+    read numbern
+    teo="$nameo $numbero"
+    ten="$namen $numbern"
+	 sed '/$teo/d' data.txt
+	 echo $ten >>data.txt     
+}
+ 
+ 
+ 
+if [ -f data.txt ]
+then
+echo
+else
+"">>data.txt
+fi
+ 
+while ls > /dev/null 2>&1
+do
+clear
+echo
+echo
+echo
+echo
+echo " 1: Show Date and Time"
+echo " 2: Find Phone Number"
+echo " 3: Add Phone Number Record"
+echo " 4: Edit Phone Number Record"
+echo " 5: Exit"
+echo -e "Enter your choice: \c"
+read option
+case $option in
+  1) date
+  	read $a;;
+  2) echo "Finding...";
+  		find;;
+  3) echo "Add...";add ;;
+  4) echo "Editing...";Edit ;;
+  5) echo "Bye...";break ;;
+  *) echo "Invalid input";;
+esac
+echo
+done
